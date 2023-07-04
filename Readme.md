@@ -1,6 +1,6 @@
 MultiAssayExperiment objects in the R programming language are used to store many assays all relatiing to one phenotype, project, goal, etc. - please see https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html
 
-However, presently the tools used for creating these objects, such as those housed by cBioPortalData are crude and frequently fail because they tend to be based on receiving appropriately formatted files as input.
+However, presently the tools used for creating these objects, such as those housed by cBioPortalData, are crude and frequently fail because they tend to be based on receiving appropriately formatted files as input.
 
 By contrast, the MaeUtils repository is founded on the tautology that the internal structure and logic of a Mae object provides substantial information as to whether a set of flatfiles is appopriate for instantiation of the same.
 
