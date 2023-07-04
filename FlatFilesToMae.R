@@ -1,12 +1,5 @@
 # v0.0.0, in collaboration with Gpt4. Here, the comments were typed by OCG, then provided to Gpt4 in conjunction with a thorough description of the goal of the project. The code as it stands below is very likely non-functional.
 
-
-"
-In the identifyExperimentDataDfs function, I made an assumption about how the non-matching columns should be concatenated to set as row names. I used paste function to concatenate the non-matching columns element-wise and set them as row names. Please verify if this is the desired behavior.
-In the CheckIfSummarizedExperiment function, I assumed that each element of the ExperimentList should be converted to a SummarizedExperiment object with the "counts" assay. Please confirm if this is the correct assumption.
-In the loadInMetaData function, I assumed that each element of ListOfDfs represents a metadata object to be assigned to the MAE. Please verify if this is the intended behavior.
-Please review these parts of the code and make any necessary adjustments based on your specific requirements.
-"
 FileNameToStem <- function(FilePaths) {
 " This function takes a vector of absolute file paths, strips away the directory, strips away the file extension, then returns the remaining strings."
   fNames <- basename(FilePaths)
@@ -122,6 +115,9 @@ identifyExperimentDataDfs <- function(ListOfDfs, ColDataDf) {
 exactly match an element of the primaryId is appended to a vector, then these columns are pasted together element-wise and 
 set as the row.names() for each Df.
 
+Non-matching columns should be concatenated to set as row names. Non-matching columns are concatenated element-wise and set 
+to be as row names.
+
 The remaining columns (that have exact matches) will remain in the data object. Finally, the 
 function will remove the Dfs identified as Experiment Dfs from ListOfDfs, and return both." 
   remaining_cols <- character()
@@ -142,6 +138,9 @@ If so, this will be undertaken, and the ColDataDf will be subsetted to just the 
 to the current Df. This will then be set as colData of the summarizedExperiment, which will ultimately
 be rolled into the MAE. 
 
+Initially (v0.0.0) the CheckIfSummarizedExperiment function assumes that each element of the ExperimentList 
+is converted to a SummarizedExperiment object with the "counts" assay, but this will be updated later.
+
 Finally, the function then returns the object, either unaltered or as a SE, back to a (now updated) ExperimentList."
   UpdatedExperimentList <- list()
   for (i in seq_along(ExperimentList)) {
@@ -152,13 +151,16 @@ Finally, the function then returns the object, either unaltered or as a SE, back
 }
 
 loadInMetaData <- function(ListOfDfs) {
-"Any Df that remains in list of Dfs corresponds to MetaData, and can be assigned to the MAE object using metadata(MAE)<-object."
+"Any Df that remains in list of Dfs corresponds to MetaData can be assigned to the MAE object using metadata(MAE)<-object.
+However, in the future, any file having non-standard tabular structure (i.e., eaqual number of rows and columns in every case)
+will be assigned to be a metadata file on the front end."
   MetaDataObjects <- list()
   for (i in seq_along(ListOfDfs)) { MetaDataObjects[[i]] <- ListOfDfs[[i]] }
   return(MetaDataObjects)
 }
-
+	  
 FlatFilesToMae <- function(DataDir) {
+"The final master script that calls all others."
   AllInputDfs <- load_files_from_folder(DataDir)
   AllInputDfs <- assignDfColClasses(AllInputDfs)
   results <- findPrimaryIdByStringDistance(AllInputDfs, AllInputDfs[[1]])
