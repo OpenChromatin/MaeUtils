@@ -1,5 +1,6 @@
 # v0.0.0, in collaboration with Gpt4. Here, the comments were typed by OCG, then provided to Gpt4 in conjunction with a thorough description of the goal of the project. The code as it stands below is very likely non-functional.
 
+
 "
 In the findPrimaryIdByStringDistance function, the original code didn't include the logic to check for an exact match between the primaryId column and the colnames. I made an assumption and added the logic to assign an Inf match score if an exact match is found.
 In the assignDfColClasses function, the original code didn't handle the case when the column is already a factor. I added an extra condition to check if the column is already a factor before performing the factor conversion.
@@ -191,7 +192,7 @@ FlatFilesToMae<-function(DataDir) {
 
 	Finally, the function returns the MAE."
 #
-	libsNeeded<-c(stringdist,SummarizedExperiment,MultiAssayExperiment)
+	libsNeeded<-c('stringdist','SummarizedExperiment','MultiAssayExperiment')
 	BiocManager::install(libsNeeded, update = TRUE, ask = FALSE)
 	lapply(libsNeeded, library, character.only = TRUE)
 #
