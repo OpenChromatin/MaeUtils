@@ -1,4 +1,4 @@
-MultiAssayExperiment objects in the R programming language are used to store many assays relation to one phenotype, project, goal, etc. - please see https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html
+MultiAssayExperiment objects in the R programming language are used to store many assays all relatiing to one phenotype, project, goal, etc. - please see https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html
 
 However, presently the tools used for creating these objects, such as those housed by cBioPortalData are crude and frequently fail because they tend to be based on receiving appropriately formatted files as input.
 
