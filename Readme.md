@@ -6,4 +6,4 @@ By contrast, the MaeUtils repository is founded on the tautology that the intern
 
 Specifically, we demonstrate more robust functionality by devoting a series of heuristics to unambiguous identification of the primaryId column that lays within the file best suited to become colData(MAE). The functions will attempt to identify such a column even in the absence of exact matches to the strings in a candidate column. 
 
-The first functionality intended is automation of the creation of a Mae objects given only a directory containing (appropriate) flat files as input.
+The first functionality (i.e., FlatFilesToMae.R) attempts to automate creation of a Mae objects given only a directory containing (appropriate) flat files as input. Future functonality to enchance ease of use is planned for the future.
