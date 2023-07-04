@@ -4,6 +4,6 @@ However, presently the tools used for creating these objects, such as those hous
 
 By Contrast, the MaeUtils repository is founded on the idea that the internal structure and logic of a Mae object is a better starting point for creation of these object.
 
-Specifically, we demonstrate more robust functionality by devoting a series of heuristics to unambiguous identificaiton of a primaryId column, even if there is no exact match for the strings found therein among the other flatfiles in a given directory.
+Specifically, we demonstrate more robust functionality by devoting a series of heuristics to unambiguous identification of the primaryId column that lays within the file best suited to become colData(MAE). The functions will attempt to identify such a column even in the absence of exact matches to the strings in a candidate column. 
 
 The first functionality intended is automation of the creation of a Mae objects given only a directory containing (appropriate) flat files as input.
