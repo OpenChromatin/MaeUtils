@@ -2,8 +2,6 @@
 
 
 "
-In the findPrimaryIdByStringDistance function, the original code didn't include the logic to check for an exact match between the primaryId column and the colnames. I made an assumption and added the logic to assign an Inf match score if an exact match is found.
-In the assignDfColClasses function, the original code didn't handle the case when the column is already a factor. I added an extra condition to check if the column is already a factor before performing the factor conversion.
 In the identifyExperimentDataDfs function, I made an assumption about how the non-matching columns should be concatenated to set as row names. I used paste function to concatenate the non-matching columns element-wise and set them as row names. Please verify if this is the desired behavior.
 In the CheckIfSummarizedExperiment function, I assumed that each element of the ExperimentList should be converted to a SummarizedExperiment object with the "counts" assay. Please confirm if this is the correct assumption.
 In the loadInMetaData function, I assumed that each element of ListOfDfs represents a metadata object to be assigned to the MAE. Please verify if this is the intended behavior.
@@ -57,6 +55,8 @@ the table of colnames and this results in an exact match, then the primaryId col
 data.frame containing that column is confirmed as the ColDataDf, which will be used to make the top level 
 ColData object for the MAE. 
 
+Initially, the findPrimaryIdByStringDistance function, the original code didn't include the logic to check for an exact match between the primaryId column and the colnames. I made an assumption and added the logic to assign an Inf match score if an exact match is found.
+
 Finally, the function assigns primaryId to be the rownames of ColDataDf, and removes ColDataDf from the list of all data.frames. "
 
   match_scores <- numeric(length(data))
@@ -82,10 +82,10 @@ entirely numeric columns (after temporary removal of NAs) will be  assigned a Cl
 all( is.integer(colElements) ) == TRUE, or as.numeric() otherwise. Columns containing either all strings or a mixture of strings 
 and numerics will be assigned to characters. 
 
-In either event (numeric or character), next the RepeatedValuesToFactor() function is called. After calling unique() on the col, 
-the quotient of the number of unique elements / the total length of the column is computed. If this quotient is < 0.25, then the 
-column is re-assigned to a factor. The reference level of the factor is designated as either the lowest number (if the col was 
-orginally designated numeric) or the most common string (if originally designated a character).
+If the column is already a factor on import, move on; in either other event (numeric or character), next the RepeatedValuesToFactor() 
+function is called. After calling unique() on the col, the quotient of the number of unique elements / the total length of the column 
+is computed. If this quotient is < 0.25, then the column is re-assigned to a factor. The reference level of the factor is designated 
+as either the lowest number (if the col was orginally designated numeric) or the most common string (if originally designated a character).
 
 The function then returns the column either in its original format or as a factor."
   df <- as.data.frame(lapply(dfList, function(col_data) {
